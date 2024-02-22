@@ -24,7 +24,7 @@ class UserController extends Controller
     {
         $formFields = $request->validate(
             [
-                'username' => ['required', Rule::unique('users', 'username')],
+                'username' => ['required', 'string', Rule::unique('users', 'username')],
                 'email' => ['required', 'email', Rule::unique('users', 'email')],
                 'password' => 'required|confirmed|min:8'
             ]
@@ -40,7 +40,7 @@ class UserController extends Controller
 
         auth()->login($user);
 
-        return redirect('/');
+        return redirect('/')->status(201);
     }
 
     function login()
@@ -59,7 +59,7 @@ class UserController extends Controller
         if (auth()->attempt($formFields)) {
             $request->session()->regenerate();
 
-            return redirect('/')->with('message', 'You are now logged in!');
+            return redirect('/')->status(200);
         }
 
         return back()->withErrors(['email' => 'Invalid Credentials'])->onlyInput('email');
