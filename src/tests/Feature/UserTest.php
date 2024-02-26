@@ -144,13 +144,7 @@ class UserTest extends TestCase
 
     public function testLogin()
     {
-        $user = User::factory()->make();
-
-        User::create([
-            'username' => $user->username,
-            'email' => $user->email,
-            'password' => bcrypt('password')
-        ]);
+        $user = User::factory()->create();
 
         $response = $this->post('/user/authenticate', [
             'email' => $user->email,
@@ -197,13 +191,7 @@ class UserTest extends TestCase
 
     public function testLoginWithIncorrectPassword()
     {
-        $user = User::factory()->make();
-
-        User::create([
-            'username' => $user->username,
-            'email' => $user->email,
-            'password' => bcrypt('password')
-        ]);
+        $user = User::factory()->create();
 
         $response = $this->post('/user/authenticate', [
             'email' => $user->email,

@@ -28,6 +28,6 @@ class QuoteController extends Controller
 
         Quote::create($formFields);
 
-        return redirect('/');
+        return redirect('/')->status(200);
     }
 }
